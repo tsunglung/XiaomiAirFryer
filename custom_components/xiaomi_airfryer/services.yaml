@@ -1,0 +1,177 @@
+start:
+  name: Start AirFryer Cooking
+  description: Start cooking a profile.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+
+stop:
+  name: Stop AirFryer Cooking
+  description: Stop the cooking process.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+
+pause:
+  name: Pause AirFryer Cooking
+  description: Pause the cooking process.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+
+resume:
+  name: Resume AirFryer Cooking
+  description: Resume the cooking process.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+
+start_custom:
+  name: Set AirFryer Custom Mode
+  description: Start cooking with custom mode.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+    mode:
+      name: Mode
+      description: Cooking mode.
+      required: true
+      selector:
+        select:
+          options:
+            - 'Standby'
+            - 'Appointment'
+            - 'Cooking'
+            - 'Preheat'
+            - 'Cooked'
+            - 'PreheatFinish'
+
+appoint_time:
+  name: Set Appoint Time of AirFryer
+  description: Set Appoint Time of AirFryer.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+    time:
+      name: Time
+      description: Appoint Time.
+      selector:
+        number:
+          min: 1
+          max: 24
+
+recipe_id:
+  name: Set Recipe ID of AirFryer
+  description: Set Recipe ID of AirFryer.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+    recipe_id:
+      name: Recipe ID
+      description: Recipe ID.
+      selector:
+        select:
+          options:
+            - 'M0'
+            - 'M1'
+            - 'M2'
+            - 'M3'
+            - 'M4'
+            - 'M5'
+            - 'M6'
+            - 'M7'
+            - 'M8'
+            - 'M9'
+            - 'M10'
+            - 'M11'
+            - 'M12'
+            - 'M13'
+            - 'M14'
+            - 'M15'
+            - 'M16'
+            - 'M17'
+            - 'M18'
+            - 'M19'
+            - 'M20'
+
+food_quanty:
+  name: Set Food Quanty of AirFryer
+  description: Set Food Quanty of AirFryer.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+    quanty:
+      name: Quanty
+      description: Food Quanty.
+      selector:
+        number:
+          min: 1
+          max: 4
+
+target_time:
+  name: Set Target Time of AirFryer
+  description: Set Target Time of AirFryer.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+    time:
+      name: Time
+      description: Traget Time.
+      selector:
+        number:
+          min: 1
+          max: 1440
+
+target_temperature:
+  name: Set Target Temperature of AirFryer
+  description: Set Target Temperature of AirFryer.
+  fields:
+    entity_id:
+      description: Name of the xiaomi airfryer entity.
+      selector:
+        entity:
+          integration: xiaomi_airfryer
+          domain: switch
+    temperature:
+      name: Temperature
+      description: Target Temperature.
+      selector:
+        number:
+          min: 40
+          max: 200

@@ -69,41 +69,35 @@ Then restart HA.
 
 Or you also can manually input AirFryer IP address and token
 
+If everything is configured correctly, Home Assistant’s Configuration - Devices list should have a device "AirFryer" and will show the following entities.
+![device card example](device_card_before.jpg "device card")
+
 ## Lovelace
 
 ```
 type: vertical-stack
 cards:
   - type: entities
-    title: Ricecooker
+    title: Air Fryer
     state_color: false
     entities:
-      - entity: switch.xiaomi_airfryer
-      - entity: sensor.xiaomi_airfryer_status
+      - entity: switch.xiaomi_airfryer_mi_smart_air_fryer_3_5l
+      - entity: sensor.xiaomi_airfryer_appoint_time_left
       - entity: sensor.xiaomi_airfryer_target_time
+      - entity: sensor.xiaomi_airfryer_preheat_phase
+      - entity: sensor.xiaomi_airfryer_food_quanty
+        secondary_info: last-changed
+      - entity: sensor.xiaomi_airfryer_recipe_id
+      - entity: sensor.xiaomi_airfryer_status
+        secondary_info: last-changed
+      - entity: sensor.xiaomi_airfryer_turn_pot
       - entity: sensor.xiaomi_airfryer_target_temperature
         secondary_info: last-changed
-      - entity: sensor.xiaomi_airfryer_left_time
-        secondary_info: last-changed
-      - entity: sensor.xiaomi_airfryer_rice_id
-      - entity: sensor.xiaomi_airfryer_work_time
-      - entity: sensor.xiaomi_airfryer_work_temp
-        secondary_info: last-changed
-      - entity: sensor.xiaomi_airfryer_appoint_time
-      - entity: sensor.xiaomi_airfryer_food_quanty
-      - entity: sensor.xiaomi_airfryer_preheat_switch
-      - entity: sensor.xiaomi_airfryer_appoint_time_left
-      - entity: sensor.xiaomi_airfryer_turn_pot
-        secondary_info: last-changed
   - type: sensor
-    entity: sensor.xiaomi_airfryer_left_time
+    entity: sensor.xiaomi_airfryer_remaining
     detail: 2
     hours_to_show: 1
-  - type: sensor
-    entity: sensor.xiaomi_airfryer_work_temp
-    graph: line
-    detail: 2
-    hours_to_show: 2
+
 ```
 
 ![Lovelace card example](lovelace-card-example.png "lovelace card")
@@ -111,20 +105,66 @@ cards:
 If you prefer a button instead of a switch entity you could add a lovelace button card to you dashboard:
 
 ```
-type: button
-tap_action:
-  action: call-service
-  service: xiaomi_airfryer.start
-hold_action:
-  action: call-service
-  service: xiaomi_airfryer.recipe_id
-  service_data:
-    recipe_id: "cake"
-show_icon: true
-show_name: true
-icon: 'mdi:cake'
-name: Baking Cake
-icon_height: 40px
+type: horizontal-stack
+cards:
+  - type: button
+    tap_action:
+      action: call-service
+      service: xiaomi_airfryer.start
+      service_data:
+        entity_id: switch.xiaomi_airfryer_mi_smart_air_fryer_3_5l
+      target: {}
+    hold_action:
+      action: more-info
+    show_icon: true
+    show_name: true
+    icon: mdi:pot-steam
+    name: Start
+    icon_height: 40px
+  - type: button
+    tap_action:
+      action: call-service
+      service: xiaomi_airfryer.stop
+      service_data:
+        entity_id: switch.xiaomi_airfryer_mi_smart_air_fryer_3_5l
+      target: {}
+    hold_action:
+      action: more-info
+    show_icon: true
+    show_name: true
+    icon: mdi:pot-steam-outline
+    name: Stop
+    icon_height: 40px
+  - type: button
+    tap_action:
+      action: call-service
+      service: xiaomi_airfryer.recipe_id
+      service_data:
+        entity_id: switch.xiaomi_airfryer_mi_smart_air_fryer_3_5l
+        recipe_id: M1
+      target: {}
+    hold_action:
+      action: more-info
+    show_icon: true
+    show_name: true
+    icon: mdi:french-fries
+    name: French Fries
+    icon_height: 40px
+  - type: button
+    tap_action:
+      action: call-service
+      service: xiaomi_airfryer.recipe_id
+      service_data:
+        entity_id: switch.xiaomi_airfryer_mi_smart_air_fryer_3_5l
+        recipe_id: M7
+      target: {}
+    hold_action:
+      action: more-info
+    show_icon: true
+    show_name: true
+    icon: mdi:cake
+    name: Baking Cake
+    icon_height: 40px
 ```
 
 ![Lovelace button to start cooking](lovelace-button-start-cooking.png "lovelace button")
@@ -182,6 +222,22 @@ Start cooking recipe id.
 | Service data attribute    | Optional | Description                                                          |
 |---------------------------|----------|----------------------------------------------------------------------|
 | `recipe_id`                 |       no | Recipe ID data .                  |
+
+#### Service `xiaomi_airfryer.target_time`
+
+Start cooking target time.
+
+| Service data attribute    | Optional | Description                                                          |
+|---------------------------|----------|----------------------------------------------------------------------|
+| `target_time`                 |       no | Target Time data .                  |
+
+#### Service `xiaomi_airfryer.target_time`
+
+Start cooking target temperature.
+
+| Service data attribute    | Optional | Description                                                          |
+|---------------------------|----------|----------------------------------------------------------------------|
+| `target_temperature`      |       no | Target Temperature data .                  |
 
 
 Buy me a Coffee
