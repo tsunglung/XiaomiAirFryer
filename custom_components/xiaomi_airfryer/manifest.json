@@ -1,0 +1,18 @@
+{
+  "domain": "xiaomi_airfryer",
+  "name": "Xiaomi AirFryer",
+  "version": "0.0.1",
+  "iot_class": "local_polling",
+  "config_flow": true,
+  "documentation": "https://github.com/tsunglung/xiaomi_airfryer",
+  "issue_tracker": "https://github.com/tsunglung/xiaomi_airfryer/issues",
+  "requirements": [
+    "construct==2.10.56",
+    "micloud==0.4",
+    "python-miio>=0.5.7"
+  ],
+  "dependencies": [],
+  "codeowners": [
+    "@tsunglung"
+  ]
+}
