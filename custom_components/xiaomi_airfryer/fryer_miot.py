@@ -353,7 +353,7 @@ class FryerMiot(MiotDevice):
             raise DeviceException("Invalid FryerMiot model: %s" % model)
 
         super().__init__(ip, token, start_id, debug, lazy_discover)
-        self.model = model
+        self._model = model
 
     @command(
         default_output=format_output(
@@ -472,4 +472,3 @@ class FryerMiotSCK(FryerMiot):
 class FryerMiotMi(FryerMiot):
     """Interface for AirFryer (careli.fryer.maf02)"""
     mapping = MIOT_MAPPING[MODEL_FRYER_534]
- 
