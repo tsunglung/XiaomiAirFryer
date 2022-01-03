@@ -337,13 +337,13 @@ class XiaomiAirFryer(SwitchEntity):
         """Set appoint time."""
         self._device.appoint_time(time)
 
-    async def async_target_time(self, time: int):
+    async def async_target_time(self, target_time: int):
         """Set target time."""
-        self._device.target_time(time)
+        self._device.target_time(target_time)
 
-    async def async_target_temperature(self, temp: int):
+    async def async_target_temperature(self, target_temperature: int):
         """Set target temperature."""
-        self._device.target_temperature(temp)
+        self._device.target_temperature(target_temperature)
 
     async def async_update(self):
         """Fetch state from the device."""

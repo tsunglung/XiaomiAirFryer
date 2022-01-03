@@ -150,7 +150,7 @@ target_time:
         entity:
           integration: xiaomi_airfryer
           domain: switch
-    time:
+    target_time:
       name: Time
       description: Traget Time.
       selector:
@@ -168,7 +168,7 @@ target_temperature:
         entity:
           integration: xiaomi_airfryer
           domain: switch
-    temperature:
+    target_temperature:
       name: Temperature
       description: Target Temperature.
       selector:
