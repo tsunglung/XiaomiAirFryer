@@ -8,9 +8,15 @@ import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.config_entries import SOURCE_REAUTH
-from homeassistant.const import CONF_HOST, CONF_NAME, CONF_TOKEN, CONF_SCAN_INTERVAL
 from homeassistant.core import callback
 from homeassistant.helpers.device_registry import format_mac
+from homeassistant.const import (
+    CONF_HOST,
+    CONF_NAME,
+    CONF_TOKEN,
+    CONF_SCAN_INTERVAL,
+    CONF_MODEL
+)
 
 from homeassistant.components.xiaomi_miio.const import (
     CONF_CLOUD_COUNTRY,
@@ -20,7 +26,6 @@ from homeassistant.components.xiaomi_miio.const import (
     CONF_FLOW_TYPE,
     CONF_MAC,
     CONF_MANUAL,
-    CONF_MODEL,
     DEFAULT_CLOUD_COUNTRY,
     SERVER_COUNTRY_CODES,
 #    AuthException,
