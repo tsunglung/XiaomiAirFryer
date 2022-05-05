@@ -8,7 +8,8 @@ import logging
 import click
 
 from miio.click_common import command, format_output
-from miio.miot_device import DeviceStatus, MiotDevice
+from miio.device import DeviceStatus
+from miio.miot_device import MiotDevice
 from .const import (
     MODEL_FRYER_MAF01,
     MODEL_FRYER_MAF02,
