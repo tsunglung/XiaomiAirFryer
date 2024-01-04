@@ -15,6 +15,8 @@ from homeassistant.const import (
     CONF_NAME,
     CONF_TOKEN,
     CONF_SCAN_INTERVAL,
+    CONF_DEVICE,
+    CONF_MAC,
     CONF_MODEL
 )
 
@@ -22,9 +24,7 @@ from homeassistant.components.xiaomi_miio.const import (
     CONF_CLOUD_COUNTRY,
     CONF_CLOUD_PASSWORD,
     CONF_CLOUD_USERNAME,
-    CONF_DEVICE,
     CONF_FLOW_TYPE,
-    CONF_MAC,
     CONF_MANUAL,
     DEFAULT_CLOUD_COUNTRY,
     SERVER_COUNTRY_CODES,

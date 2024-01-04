@@ -19,13 +19,13 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_NAME,
     CONF_TOKEN,
+    CONF_DEVICE,
     CONF_MAC
 )
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import device_registry as dr
 from homeassistant.util import slugify
 from homeassistant.components.xiaomi_miio.const import (
-    CONF_DEVICE,
     CONF_FLOW_TYPE,
 )
 from .const import (
