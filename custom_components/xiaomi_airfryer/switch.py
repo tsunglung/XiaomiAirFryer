@@ -215,7 +215,8 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 update_tasks.append(device.async_update_ha_state(True))
 
             if update_tasks:
-                await asyncio.wait(update_tasks)
+                task_objects = [asyncio.create_task(task) for task in update_tasks]
+                await asyncio.wait(task_objects)
 
         for service, _ in SERVICE_TO_METHOD.items():
             schema = SERVICE_TO_METHOD[service].get("schema", SERVICE_SCHEMA)
