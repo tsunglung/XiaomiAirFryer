@@ -166,7 +166,7 @@ class XiaomiAirFryerSensor(SensorEntity):
         self._attr_name = config[0]
         self._child = config[1]
         self._attr = config[2]
-        self._attr_unit_of_measurement = config[3]
+        self._attr_native_unit_of_measurement = config[3]
         self._icon = config[4]
         self._attr_device_class = config[5]
         self._state = None
