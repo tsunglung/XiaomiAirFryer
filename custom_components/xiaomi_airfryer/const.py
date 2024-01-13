@@ -2,7 +2,7 @@
 from datetime import timedelta
 
 DEFAULT_NAME = "Xiaomi AirFryer"
-DOMAIN = "xiaomi_airfryer"
+DOMAIN = "xiaomi_miot"
 DOMAINS = ["sensor", "switch"]
 DATA_KEY = "xiaomi_airfryer_data"
 DATA_STATE = "state"
@@ -15,6 +15,7 @@ MODEL_FRYER_MAF01 = "careli.fryer.maf01"
 MODEL_FRYER_MAF02 = "careli.fryer.maf02"
 MODEL_FRYER_MAF03 = "careli.fryer.maf03"
 MODEL_FRYER_MAF07 = "careli.fryer.maf07"
+MODEL_FRYER_MAF10A = "careli.fryer.maf10a"
 MODEL_FRYER_YBAF01 = "careli.fryer.ybaf01"
 MODEL_FRYER_MAF05A = "careli.fryer.maf05a"
 MODEL_FRYER_SCK501 = "silen.fryer.sck501"
@@ -26,6 +27,7 @@ OPT_MODEL = {
     MODEL_FRYER_MAF02: "Mi Smart Air Fryer Global",
     MODEL_FRYER_MAF03: "Mi Smart Air Fryer China",
     MODEL_FRYER_MAF07: "Mi Smart Air Fryer Global",
+    MODEL_FRYER_MAF10A: "Mi Smart Air Fryer EU 6.5L",
     MODEL_FRYER_MAF05A: "Mi Smart Air Fryer EU",
     MODEL_FRYER_YBAF01: "Upany Air Fryer YB-02208DTW",
     MODEL_FRYER_SCK501: "Silencare AirFryer 1.8L",
@@ -37,6 +39,7 @@ MODELS_CARELI = [
     MODEL_FRYER_MAF02,
     MODEL_FRYER_MAF03,
     MODEL_FRYER_MAF07,
+    MODEL_FRYER_MAF10A,
     MODEL_FRYER_YBAF01,
     MODEL_FRYER_MAF05A
 ]
