@@ -2,7 +2,7 @@
 from datetime import timedelta
 
 DEFAULT_NAME = "Xiaomi AirFryer"
-DOMAIN = "xiaomi_miot"
+DOMAIN = "xiaomi_airfryer"
 DOMAINS = ["sensor", "switch"]
 DATA_KEY = "xiaomi_airfryer_data"
 DATA_STATE = "state"
