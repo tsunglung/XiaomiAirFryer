@@ -15,6 +15,7 @@ from .const import (
     MODEL_FRYER_MAF02,
     MODEL_FRYER_MAF03,
     MODEL_FRYER_MAF07,
+    MODEL_FRYER_MAF10A,
     MODEL_FRYER_YBAF01,
     MODEL_FRYER_MAF05A,
     MODEL_FRYER_SCK501,
@@ -107,6 +108,30 @@ MIOT_MAPPING = {
         "start_custom_cook": {"siid": 3, "aiid": 1},
         "resume_cooking": {"siid": 3, "aiid": 2}
     },
+    MODEL_FRYER_MAF10A: {
+        "status": {"siid": 2, "piid": 1},  # read, notify
+        "device_fault": {"siid": 2, "piid": 2},  # read, notify
+        "target_time": {"siid": 2, "piid": 3},  # read, notify, write
+        "target_temperature": {"siid": 2, "piid": 4},  # read, notify, write
+        "left_time": {"siid": 2, "piid": 5},  # read, notify
+        "auto_keep_warm": {"siid": 2, "piid": 6},  # read, notify, write
+        "current_keep_warm": {"siid": 2, "piid": 7},  # read, notify, write
+        "mode": {"siid": 2, "piid": 8},  # read, notify, write
+        "preheat": {"siid": 2, "piid": 9},  # read, notify, write
+        "recipe_id": {"siid": 2, "piid": 10},  # read, notify, write
+        "recipe_name": {"siid": 2, "piid": 11},  # read, notify, write
+        "recipe_sync": {"siid": 2, "piid": 12},  # read, notify, write
+        "taret_cooking_measure": {"siid": 2, "piid": 13},  # read, notify, write
+        "turn_pot": {"siid": 2, "piid": 14},  # read, notify
+        "turn_pot_config": {"siid": 2, "piid": 16},  # read, notify, write
+        "reservation_left_time": {"siid": 2, "piid": 17},  # read, notify, write
+        "cooking_weight": {"siid": 2, "piid": 18},  # read, notify, write
+        "start_cook": {"siid": 2, "aiid": 1},
+        "cancel_cooking": {"siid": 2, "aiid": 2},
+        "pause": {"siid": 2, "aiid": 3},
+        "resume_cook": {"siid": 2, "aiid": 4},
+        "start_recipe_cook": {"siid": 2, "aiid": 5}
+    },
     MODEL_FRYER_YBAF01: {
         "status": {"siid": 2, "piid": 1},  # read, notify
         "device_fault": {"siid": 2, "piid": 2},  # read, notify
@@ -198,6 +223,11 @@ class Status(enum.Enum):
     PreheatFinish = 7
     PreheatPause = 8
     Pause2 = 9
+    Keepwarm = 10
+    KeepwarmPause = 11
+    KeepwarmFinish = 12
+    CrispyRoast = 13
+    Degrease = 14
 
 
 class DeviceFault(enum.Enum):
@@ -206,6 +236,7 @@ class DeviceFault(enum.Enum):
     NoFaults = 0
     E1 = 1
     E2 = 2
+    E3 = 3
 
 
 class FoodQuanty(enum.Enum):
@@ -233,6 +264,26 @@ class PreheatSwitch(enum.Enum):
     Off = 1
     On = 2
 
+class CookingMode(enum.Enum):
+    Manual = 0
+    FrenchFries = 1
+    ChickenWing = 2
+    Steak = 3
+    LambChops = 4
+    Fish = 5
+    Shrimp = 6
+    Vegetables = 7
+    Cake = 8
+    Pizza = 9
+    Defrost = 10
+    DriedFruit = 11
+    Yogurt = 12
+
+class CookingTexture(enum.Enum):
+    NONE = 0
+    CrispyRoast = 1
+    TenderRoast = 2
+    Degrease = 3
 
 class FryerStatusMiot(DeviceStatus):
     """Container for status reports for Xiaomi FryerStatusMiot."""
@@ -246,16 +297,21 @@ class FryerStatusMiot(DeviceStatus):
             {'did': 'status', 'siid': 2, 'piid': 1, 'code': 0, 'value': 0},
             {'did': 'device_fault', 'siid': 2, 'piid': 2, 'code': 0, 'value': 0},
             {'did': 'target_time', 'siid': 2, 'piid': 3, 'code': 0, 'value': 2},
-            {'did': 'target_temperature', 'siid': 2, 'piid': 4, 'code': 0, 'value': 54},
+            {'did': 'target_temperature', 'siid': 4, 'piid': 4, 'code': 0, 'value': 54},
             {'did': 'left_time', 'siid': 2, 'piid': 5, 'code': 0, 'value': 0},
-            {'did': 'recipe_id', 'siid': 3, 'piid': 1, 'code': 0, 'value': 'xxx'},
-            {'did': 'work_time', 'siid': 3, 'piid': 3, 'code': 0, 'value': 0},
-            {'did': 'work_temp', 'siid': 3, 'piid': 4, 'code': 0, 'value': 0},
-            {'did': 'appoint_time', 'siid': 3, 'piid': 5, 'code': 0, 'value': 0},
-            {'did': 'food_quanty', 'siid': 3, 'piid': 6, 'code': 0, 'value': 0},
-            {'did': 'preheat_switch', 'siid': 3, 'piid': 7, 'code': 0, 'value': 0},
-            {'did': 'appoint_time_left', 'siid': 3, 'piid': 8, 'code': 0, 'value': 0},
-            {'did': 'turn_pot', 'siid': 3, 'piid': 10, 'code': 0, 'value': 0}
+            {'did': 'auto_keep_warm', 'siid': 2, 'piid': 6, 'code': 0, 'value': 0},
+            {'did': 'current_keep_warm', 'siid': 2, 'piid': 7, 'code': 0, 'value': 0},
+            {'did': 'mode', 'siid': 2, 'piid': 8, 'code': 0, 'value': 0},
+            {'did': 'preheat', 'siid': 2, 'piid': 9, 'code': 0, 'value': 0},
+            {'did': 'recipe_id', 'siid': 2, 'piid': 10, 'code': 0, 'value': 0},
+            {'did': 'recipe_name', 'siid': 2, 'piid': 11, 'code': 0, 'value': 0},
+            {'did': 'recipe_sync', 'siid': 2, 'piid': 12, 'code': 0, 'value': 0},
+            {'did': 'target_cooking_measure, 'siid': 2, 'piid': 13, 'code': 0, 'value': 0},
+            {'did': 'turn_pot', 'siid': 2, 'piid': 14, 'code': 0, 'value': 1},
+            {'did': 'turn_pot_config', 'siid': 2, 'piid': 15, 'code': 0, 'value': 0},
+            {'did': 'texture', 'siid': 2, 'piid': 16, 'code': 0, 'value': 0},
+            {'did': 'reservation_left_time', 'siid': 2, 'piid': 17, 'code': 0, 'value': 1},
+            {'did': 'cooking_weight', 'siid': 2, 'piid': 18, 'code': 0, 'value': 1}
           ],
           'exe_time': 280
         }

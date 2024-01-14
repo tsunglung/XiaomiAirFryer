@@ -7,6 +7,7 @@ from typing import Optional
 from datetime import timedelta
 
 from homeassistant.components.sensor import ENTITY_ID_FORMAT, SensorEntity
+from homeassistant.components.sensor.const import SensorDeviceClass
 from homeassistant.config_entries import SOURCE_IMPORT
 from homeassistant.core import callback
 from homeassistant.helpers import device_registry as dr
@@ -16,9 +17,8 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_MAC,
     CONF_TOKEN,
-    DEVICE_CLASS_TEMPERATURE,
-    TEMP_CELSIUS,
-    TIME_MINUTES
+    UnitOfTemperature,
+    UnitOfTime,
 )
 
 from miio import Device, DeviceException
@@ -40,30 +40,30 @@ SCAN_INTERVAL = timedelta(seconds=10)
 
 SENSOR_TYPES_MAF = {
     "status": ["Status", None, "status", None, "mdi:bowl", None],
-    "target_time": ["Target Time", None, "target_time", TIME_MINUTES, "mdi:menu", None],
-    "target_temperature": ["Target Temperature", None, "target_temperature", TEMP_CELSIUS, None, DEVICE_CLASS_TEMPERATURE],
-    "left_time": ["Remaining", None, "left_time", TIME_MINUTES, "mdi:timer", None],
+    "target_time": ["Target Time", None, "target_time", UnitOfTime.MINUTES, "mdi:menu", None],
+    "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None,SensorDeviceClass.TEMPERATURE],
+    "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
     "recipe_id": ["Recipe Id", None, "recipe_id", None, "mdi:rice", None],
-    "appoint_time": ["Apponit Time", None, "appoint_time", TIME_MINUTES, "mdi:timelapse", None],
+    "appoint_time": ["Apponit Time", None, "appoint_time", UnitOfTime.MINUTES, "mdi:timelapse", None],
     "food_quanty": ["Food Quanty", None, "food_quanty", None, "mdi:flash-outline", None],
     "preheat_switch": ["Preheat Phase", None, "preheat_switch", None, "mdi:pot-steam-outline", None],
-    "appoint_time_left": ["Appoint Time Left", None, "appoint_time_left", TIME_MINUTES, "mdi:timer", None],
+    "appoint_time_left": ["Appoint Time Left", None, "appoint_time_left", UnitOfTime.MINUTES, "mdi:timer", None],
     "turn_pot": ["Turn Pot", None, "turn_pot", None, "mdi:rotate-3d-variant", None]
 }
 
 SENSOR_TYPES_YBAF = {
     "status": ["Status", None, "status", None, "mdi:bowl", None],
     "target_time": ["Target Time", None, "target_time", None, "mdi:menu", None],
-    "target_temperature": ["Target Temperature", None, "target_temperature", TEMP_CELSIUS, None, DEVICE_CLASS_TEMPERATURE],
-    "left_time": ["Remaining", None, "left_time", TIME_MINUTES, "mdi:timer", None],
+    "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None, SensorDeviceClass.TEMPERATURE],
+    "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
     "mode": ["Recipe Id", None, "mode", None, "mdi:stairs", None]
 }
 
 SENSOR_TYPES_SCK = {
     "status": ["Status", None, "status", None, "mdi:bowl", None],
     "target_time": ["Target Time", None, "target_time", None, "mdi:menu", None],
-    "target_temperature": ["Target Temperature", None, "target_temperature", TEMP_CELSIUS, None, DEVICE_CLASS_TEMPERATURE],
-    "left_time": ["Remaining", None, "left_time", TIME_MINUTES, "mdi:timer", None],
+    "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None, SensorDeviceClass.TEMPERATURE],
+    "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
     "switch_status": ["Preheat Phase", None, "work_temp", None, "mdi:pot-steam-outline", None],
     "mode": ["Recipe Id", None, "mode", None, "mdi:stairs", None]
 }
@@ -71,8 +71,8 @@ SENSOR_TYPES_SCK = {
 SENSOR_TYPES_MIOT = {
     "status": ["Status", None, "status", None, "mdi:bowl", None],
     "target_time": ["Target Time", None, "target_time", None, "mdi:menu", None],
-    "target_temperature": ["Target Temperature", None, "target_temperature", TEMP_CELSIUS, None, DEVICE_CLASS_TEMPERATURE],
-    "left_time": ["Remaining", None, "left_time", TIME_MINUTES, "mdi:timer", None],
+    "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None, SensorDeviceClass.TEMPERATURE],
+    "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
     "recipe_id": ["Recipe Id", None, "recipe_id", None, "mdi:rice", None],
     "preheat_switch": ["Preheat Phase", None, "preheat_switch", None, "mdi:pot-steam-outline", None],
     "mode": ["Recipe Id", None, "mode", None, "mdi:stairs", None]
@@ -166,7 +166,7 @@ class XiaomiAirFryerSensor(SensorEntity):
         self._attr_name = config[0]
         self._child = config[1]
         self._attr = config[2]
-        self._attr_unit_of_measurement = config[3]
+        self._attr_native_unit_of_measurement = config[3]
         self._icon = config[4]
         self._attr_device_class = config[5]
         self._state = None

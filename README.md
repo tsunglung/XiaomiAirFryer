@@ -13,6 +13,8 @@ Credits: Thanks to [Rytilahti](https://github.com/rytilahti/python-miio) for all
 |                             | careli.fryer.maf01  |   |
 | Mi Smart Air Fryer          | careli.fryer.maf02  |   |
 |                             | careli.fryer.maf03  | |
+|                             | careli.fryer.maf05a  | |
+|                             | careli.fryer.maf10a  | |
 |                             | careli.fryer.maf07  | |
 | Upany Air Fryer YB-02208DTW | careli.fryer.ybaf01 | |
 | Silencare AirFryer 1.8L     | silen.fryer.sck501  |   |
