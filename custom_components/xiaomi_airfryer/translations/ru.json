@@ -1,0 +1,83 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Устройство уже настроено",
+            "already_in_progress": "Настройка устройства уже запущена",
+            "incomplete_info": "Недостаточно данных для настройки устройства: хост или токен не указаны.",
+            "not_xiaomi_miio": "Устройство пока что не поддерживается в Xiaomi Miio.",
+            "reauth_successful": "Повторный вход успешно выполнен"
+        },
+        "error": {
+            "cannot_connect": "Ошибка подключения",
+            "cloud_credentials_incomplete": "Недостаточно данных для подключения к облаку Xiaomi Miio, укажите имя пользователя, пароль и регион",
+            "cloud_login_error": "Не удалось подключиться к облаку Xiaomi Miio, проверьте учетные данные.",
+            "cloud_no_devices": "В этом аккаунте Xiaomi Miio устройства не найдены.",
+            "no_device_selected": "Не выбрано устройство. Пожалуйста, выберите одно.",
+            "unknown_device": "Модель устройства не опознана, невозможно продолжить настройку.",
+            "wrong_token": "Ошибка проверки контрольной суммы, неверный токен"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Регион устройства",
+                    "cloud_password": "Пароль",
+                    "cloud_username": "Имя пользователя",
+                    "manual": "Настроить вручную (не рекомендуется)"
+                },
+                "description": "Подключение к облаку Xiaomi Miio, см. https://www.openhab.org/addons/bindings/miio/#country-servers для выбора региона.",
+                "title": "Подключение к аэрогрилю Xiaomi Miio"
+            },
+            "connect": {
+                "data": {
+                    "model": "Модель устройства"
+                },
+                "description": "Ручной выбор модели из списка поддерживаемых.",
+                "title": "Подключение к аэрогрилю Xiaomi Miio"
+            },
+            "device": {
+                "data": {
+                    "host": "IP-адрес",
+                    "model": "Модель устройства (необязательно)",
+                    "name": "Имя устройства",
+                    "token": "Токен доступа"
+                },
+                "description": "Вам потребуется 32 значный токен доступа, см. https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Учтите, что этот токен отличается от ключа, используемого в интеграции Xiaomi Aqara.",
+                "title": "Подключение к аэрогрилю Xiaomi Miio"
+            },
+            "manual": {
+                "data": {
+                    "host": "IP-адрес",
+                    "token": "Токен доступа"
+                },
+                "description": "Вам потребуется 32 значный токен доступа, см. https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Учтите, что этот токен отличается от ключа, используемого в интеграции Xiaomi Aqara.",
+                "title": "Подключение к аэрогрилю Xiaomi Miio"
+            },
+            "reauth_confirm": {
+                "description": "Интеграция Xiaomi Miio нуждается в повторном входе в ваш аккаунт для обновления токена и/или отсутствующих учетных данных.",
+                "title": "Повторный вход в аккаунт"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Аэрогриль Xiaomi"
+                },
+                "description": "Выберите аэрогриль Xiaomi для настройки.",
+                "title": "Подключение к аэрогрилю Xiaomi"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Недостаточно данных для подключения к облаку Xiaomi Miio, укажите имя пользователя, пароль и регион"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Используйте подключение к облаку для получения подключенных устройств"
+                },
+                "description": "Укажите дополнительные параметры",
+                "title": "Аэрогриль Xiaomi"
+            }
+        }
+    }
+}
