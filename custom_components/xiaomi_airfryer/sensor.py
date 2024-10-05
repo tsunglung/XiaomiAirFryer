@@ -31,6 +31,7 @@ from .const import (
     MODELS_CARELI,
     MODELS_MIOT,
     MODELS_SILEN,
+    MODELS_VIOMI,
     MODELS_ALL_DEVICES
 )
 
@@ -76,6 +77,15 @@ SENSOR_TYPES_MIOT = {
     "recipe_id": ["Recipe Id", None, "recipe_id", None, "mdi:rice", None],
     "preheat_switch": ["Preheat Phase", None, "preheat_switch", None, "mdi:pot-steam-outline", None],
     "mode": ["Recipe Id", None, "mode", None, "mdi:stairs", None]
+}
+
+SENSOR_TYPES_VIOMI = {
+    "status": ["Status", None, "status", None, "mdi:bowl", None],
+    "target_time": ["Target Time", None, "target_time", None, "mdi:menu", None],
+    "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None, SensorDeviceClass.TEMPERATURE],
+    "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
+    "recipe_id": ["Recipe Id", None, "recipe_id", None, "mdi:rice", None],
+    "turn_pot_status": ["Turn Pot Status", None, "turn_pot_status", None, "mdi:rotate-3d-variant", None],
 }
 
 
@@ -137,6 +147,9 @@ async def async_setup_entry(hass, config, async_add_devices, discovery_info=None
             sensors.append(XiaomiAirFryerSensor(fryer, host, stype, config))
     elif model in MODELS_MIOT:
         for stype in SENSOR_TYPES_MIOT.values():
+            sensors.append(XiaomiAirFryerSensor(fryer, host, stype, config))
+    elif model in MODELS_VIOMI:
+        for stype in SENSOR_TYPES_VIOMI.values():
             sensors.append(XiaomiAirFryerSensor(fryer, host, stype, config))
     elif model in MODELS_ALL_DEVICES:
         for stype in SENSOR_TYPES_YBAF.values():
