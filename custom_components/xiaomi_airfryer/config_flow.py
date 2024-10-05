@@ -72,15 +72,17 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Init object."""
         self.config_entry = config_entry
+        self.options = dict(config_entry.options)
 
     async def async_step_init(self, user_input=None):
         """Manage the options."""
         errors = {}
         if user_input is not None:
-            use_cloud = user_input.get(CONF_SCAN_INTERVAL, False)
-            cloud_username = self.config_entry.data.get(CONF_CLOUD_USERNAME)
-            cloud_password = self.config_entry.data.get(CONF_CLOUD_PASSWORD)
-            cloud_country = self.config_entry.data.get(CONF_CLOUD_COUNTRY)
+            self.options.update(user_input)
+            use_cloud = self.options.get(CONF_MANUAL, False)
+            cloud_username = self.options.get(CONF_CLOUD_USERNAME)
+            cloud_password = self.options.get(CONF_CLOUD_PASSWORD)
+            cloud_country = self.options.get(CONF_CLOUD_COUNTRY)
 
             if use_cloud and (
                 not cloud_username or not cloud_password or not cloud_country
@@ -91,18 +93,18 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
                     self.hass.config_entries.flow.async_init(
                         DOMAIN,
                         context={"source": SOURCE_REAUTH},
-                        data=self.config_entry.data,
+                        data=self.options,
                     )
                 )
 
             if not errors:
-                return self.async_create_entry(title="", data=user_input)
+                return self.async_create_entry(title="", data=self.options)
 
         settings_schema = vol.Schema(
             {
                 vol.Optional(
                     CONF_SCAN_INTERVAL,
-                    default=self.config_entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
+                    default=self.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL),
                 ): int
             }
         )
