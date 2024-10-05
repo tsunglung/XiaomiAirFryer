@@ -21,6 +21,7 @@ MODEL_FRYER_MAF05A = "careli.fryer.maf05a"
 MODEL_FRYER_SCK501 = "silen.fryer.sck501"
 MODEL_FRYER_SCK505 = "silen.fryer.sck505"
 MODEL_FRYER_534 = "miot.fryer.534"
+MODEL_FRYER_V3 = "viomi.fryer.v3"
 
 OPT_MODEL = {
     MODEL_FRYER_MAF01: "Mi Smart Air Fryer China",
@@ -32,6 +33,7 @@ OPT_MODEL = {
     MODEL_FRYER_YBAF01: "Upany Air Fryer YB-02208DTW",
     MODEL_FRYER_SCK501: "Silencare AirFryer 1.8L",
     MODEL_FRYER_SCK505: "Silencare AirFryer",
+    MODEL_FRYER_V3: "Viomi Smart Air Fryer Pro 6L",
 }
 
 MODELS_CARELI = [
@@ -50,7 +52,10 @@ MODELS_SILEN = [
 MODELS_MIOT = [
     MODEL_FRYER_534
 ]
-MODELS_ALL_DEVICES = MODELS_CARELI + MODELS_SILEN + MODELS_MIOT
+MODELS_VIOMI = [
+    MODEL_FRYER_V3
+]
+MODELS_ALL_DEVICES = MODELS_CARELI + MODELS_SILEN + MODELS_MIOT + MODELS_VIOMI
 
 ATTR_FOOD_QUANTY = "food_quanty"
 ATTR_MODEL = "model"
