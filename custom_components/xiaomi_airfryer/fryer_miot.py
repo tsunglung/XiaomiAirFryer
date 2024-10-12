@@ -252,7 +252,7 @@ class DeviceException(Exception):
     """Exception wrapping any communication errors with the device."""
 
 
-class Status(enum.Enum):
+class StatusDefault(enum.Enum):
     """ Status """
     Unknown = -1
     Shutdown = 0
@@ -270,31 +270,28 @@ class Status(enum.Enum):
     KeepwarmFinish = 12
     CrispyRoast = 13
     Degrease = 14
-    Delay = 15
-    PotPause = 16
 
 
-STATUS_MAPPING = {
-    MODEL_FRYER_V3: {
-        -1: Status.Unknown,
-        0: Status.Shutdown,
-        2: Status.Cooking,
-        3: Status.Keepwarm,
-        4: Status.Pause
-    },
-    MODEL_FRYER_MAF14: {
-        -1: Status.Unknown,
-        0: Status.Shutdown,
-        1: Status.Standby,
-        2: Status.Delay,
-        3: Status.Cooking,
-        4: Status.Pause,
-        5: Status.PotPause,
-        6: Status.Keepwarm,
-        7: Status.KeepwarmFinish,
-        8: Status.Cooked,
-    }
-}
+class StatusV3(enum.Enum):
+    Unknown = -1
+    Shutdown = 0
+    Cooking = 2
+    Keepwarm = 3
+    Pause = 4
+
+
+class StatusXiaomi(enum.Enum):
+    Unknown = -1
+    Shutdown = 0
+    Standby = 1
+    Delay = 2
+    Cooking = 3
+    Pause = 4
+    PotPause = 5
+    Keepwarm = 6
+    KeepwarmFinish = 7
+    Cooked = 8
+
 
 class DeviceFault(enum.Enum):
     """ Device Fault """
@@ -330,7 +327,8 @@ class PreheatSwitch(enum.Enum):
     Off = 1
     On = 2
 
-class CookingMode(enum.Enum):
+
+class CookingModeDefault(enum.Enum):
     Manual = 0
     FrenchFries = 1
     ChickenWing = 2
@@ -345,21 +343,20 @@ class CookingMode(enum.Enum):
     DriedFruit = 11
     Yogurt = 12
 
-COOKING_MODE_MAPPING = {
-    MODEL_FRYER_MAF14: {
-        0: CookingMode.Manual,
-        1: CookingMode.ChickenWing,
-        2: CookingMode.Steak,
-        3: CookingMode.Fish,
-        4: CookingMode.FrenchFries,
-        5: CookingMode.Cake,
-        6: CookingMode.Defrost,
-        7: CookingMode.DriedFruit,
-        8: CookingMode.Yogurt,
-        9: CookingMode.Shrimp,
-        10: CookingMode.Vegetables,
-    }
-}
+
+class CookingModeXiaomi(enum.Enum):
+    Manual = 0
+    ChickenWing = 1
+    Steak = 2
+    Fish = 3
+    FrenchFries = 4
+    Cake = 5
+    Defrost = 6
+    DriedFruit = 7
+    Yogurt = 8
+    Shrimp = 9
+    Vegetables = 10
+
 
 class CookingTexture(enum.Enum):
     NONE = 0
@@ -370,7 +367,7 @@ class CookingTexture(enum.Enum):
 class FryerStatusMiot(DeviceStatus):
     """Container for status reports for Xiaomi FryerStatusMiot."""
 
-    def __init__(self, data: Dict[str, Any], status_mapping: Dict[int, Status], mode_mapping: Dict[int, CookingMode]) -> None:
+    def __init__(self, model: str, data: Dict[str, Any]) -> None:
         """
         Response of a Fryer (careli.fryer.maf02):
         {
@@ -398,30 +395,40 @@ class FryerStatusMiot(DeviceStatus):
           'exe_time': 280
         }
         """
+        self.model = model
         self.data = data
-        self.status_mapping = status_mapping or {}
-        self.mode_mapping = mode_mapping or {}
 
     @property
     def is_on(self) -> bool:
         """True if device is currently on."""
-        return False if self.data["status"] in [0, 1, 6, 9] else True
+        if self.model in [MODEL_FRYER_MAF14]:
+            return False if self.data["status"] in [0, 1, 7, 8] else True
+        else:
+            return False if self.data["status"] in [0, 1, 6, 9] else True
 
     @property
     def mode(self) -> int:
         """Mode."""
         mode_raw = self.data["mode"]
-        return self.mode_mapping[mode_raw] if mode_raw in self.mode_mapping else CookingMode(self.data["mode"])
+        if self.model in [MODEL_FRYER_MAF14]:
+            return CookingModeXiaomi(mode_raw)
+        else:
+            return CookingModeDefault(mode_raw)
 
     @property
     def status(self) -> int:
         """Operation status."""
         try:
             status_raw = self.data["status"]
-            return self.status_mapping[status_raw] if status_raw in self.status_mapping else Status(self.data["status"])
+            if self.model in [MODEL_FRYER_MAF14]:
+                return StatusXiaomi(status_raw)
+            elif self.model in [MODEL_FRYER_V3]:
+                return StatusV3(status_raw)
+            else:
+                return StatusDefault(status_raw)
         except ValueError:
             _LOGGER.error("Unknown Status (%s)", self.data["status"])
-            return Status.Unknown
+            return StatusDefault.Unknown
 
     @property
     def device_fault(self) -> int:
@@ -503,8 +510,6 @@ class FryerStatusMiot(DeviceStatus):
 class FryerMiot(MiotDevice):
     """Interface for AirFryer (careli.fryer.maf02)"""
     mapping = MIOT_MAPPING[MODEL_FRYER_MAF02]
-    status_mapping = None
-    mode_mapping = None
 
     def __init__(
         self,
@@ -542,12 +547,11 @@ class FryerMiot(MiotDevice):
     def status(self) -> FryerStatusMiot:
         """Retrieve properties."""
         return FryerStatusMiot(
+            self._model,
             {
                 prop["did"]: prop["value"] if prop["code"] == 0 else None
                 for prop in self.get_properties_for_mapping()
             },
-            self.status_mapping,
-            self.mode_mapping,
         )
 
     @command(
@@ -645,10 +649,7 @@ class FryerMiotMi(FryerMiot):
 class FryerMiotViomi(FryerMiot):
     """Interface for AirFryer (viomi.fryer.v3)"""
     mapping = MIOT_MAPPING[MODEL_FRYER_V3]
-    status_mapping = STATUS_MAPPING[MODEL_FRYER_V3]
 
 class FryerMiotXiaomi(FryerMiot):
     """Interface for AirFryer (xiaomi.fryer.maf14)"""
     mapping = MIOT_MAPPING[MODEL_FRYER_MAF14]
-    status_mapping = STATUS_MAPPING[MODEL_FRYER_MAF14]
-    mode_mapping = COOKING_MODE_MAPPING[MODEL_FRYER_MAF14]
