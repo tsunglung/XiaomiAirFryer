@@ -22,6 +22,7 @@ from .const import (
     MODEL_FRYER_SCK505,
     MODEL_FRYER_534,
     MODEL_FRYER_V3,
+    MODEL_FRYER_MAF14,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -220,6 +221,30 @@ MIOT_MAPPING = {
         "pause": {"siid": 2, "aiid": 2},
         "cancel_cooking": {"siid": 2, "aiid": 3},
     },
+    # https://miot-spec.org/miot-spec-v2/instance?type=urn:miot-spec-v2:device:air-fryer:0000A0A4:xiaomi-maf14:1
+    MODEL_FRYER_MAF14: {
+        "status": {"siid": 2, "piid": 1},  # read, notify
+        "device_fault": {"siid": 2, "piid": 2},  # read, notify
+        "target_time": {"siid": 2, "piid": 3},  # read, notify, write
+        "target_temperature": {"siid": 2, "piid": 4},  # read, notify, write
+        "mode": {"siid": 2, "piid": 5},  # read, notify, write
+        "left_time": {"siid": 2, "piid": 6},  # read, notify
+        "taret_cooking_measure": {"siid": 2, "piid": 7},  # read, notify, write
+        "recipe_id": {"siid": 2, "piid": 8},  # read, notify, write
+        "recipe_sync": {"siid": 2, "piid": 9},  # read, notify, write
+        "recipe_name": {"siid": 2, "piid": 10},  # read, notify, write
+        "turn_pot_config": {"siid": 2, "piid": 11},  # read, notify, write
+        "turn_pot": {"siid": 2, "piid": 12},  # read, notify
+        "current_keep_warm": {"siid": 2, "piid": 13},  # read, notify, write
+        "auto_keep_warm": {"siid": 2, "piid": 14},  # read, notify, write
+        "reservation_left_time": {"siid": 2, "piid": 15},  # read, notify, write
+        "cooking_weight": {"siid": 2, "piid": 16},  # read, notify, write
+        "start_cook": {"siid": 2, "aiid": 1},
+        "cancel_cooking": {"siid": 2, "aiid": 2},
+        "pause": {"siid": 2, "aiid": 3},
+        "resume_cook": {"siid": 2, "aiid": 4},
+        "start_recipe_cook": {"siid": 2, "aiid": 5}
+    },
 }
 
 
@@ -245,6 +270,8 @@ class Status(enum.Enum):
     KeepwarmFinish = 12
     CrispyRoast = 13
     Degrease = 14
+    Delay = 15
+    PotPause = 16
 
 
 STATUS_MAPPING = {
@@ -254,6 +281,18 @@ STATUS_MAPPING = {
         2: Status.Cooking,
         3: Status.Keepwarm,
         4: Status.Pause
+    },
+    MODEL_FRYER_MAF14: {
+        -1: Status.Unknown,
+        0: Status.Shutdown,
+        1: Status.Standby,
+        2: Status.Delay,
+        3: Status.Cooking,
+        4: Status.Pause,
+        5: Status.PotPause,
+        6: Status.Keepwarm,
+        7: Status.KeepwarmFinish,
+        8: Status.Cooked,
     }
 }
 
@@ -306,6 +345,22 @@ class CookingMode(enum.Enum):
     DriedFruit = 11
     Yogurt = 12
 
+COOKING_MODE_MAPPING = {
+    MODEL_FRYER_MAF14: {
+        0: CookingMode.Manual,
+        1: CookingMode.ChickenWing,
+        2: CookingMode.Steak,
+        3: CookingMode.Fish,
+        4: CookingMode.FrenchFries,
+        5: CookingMode.Cake,
+        6: CookingMode.Defrost,
+        7: CookingMode.DriedFruit,
+        8: CookingMode.Yogurt,
+        9: CookingMode.Shrimp,
+        10: CookingMode.Vegetables,
+    }
+}
+
 class CookingTexture(enum.Enum):
     NONE = 0
     CrispyRoast = 1
@@ -315,7 +370,7 @@ class CookingTexture(enum.Enum):
 class FryerStatusMiot(DeviceStatus):
     """Container for status reports for Xiaomi FryerStatusMiot."""
 
-    def __init__(self, data: Dict[str, Any], status_mapping: Dict[int, Status]) -> None:
+    def __init__(self, data: Dict[str, Any], status_mapping: Dict[int, Status], mode_mapping: Dict[int, CookingMode]) -> None:
         """
         Response of a Fryer (careli.fryer.maf02):
         {
@@ -345,6 +400,7 @@ class FryerStatusMiot(DeviceStatus):
         """
         self.data = data
         self.status_mapping = status_mapping or {}
+        self.mode_mapping = mode_mapping or {}
 
     @property
     def is_on(self) -> bool:
@@ -354,7 +410,8 @@ class FryerStatusMiot(DeviceStatus):
     @property
     def mode(self) -> int:
         """Mode."""
-        return self.data.get("mode")
+        mode_raw = self.data["mode"]
+        return self.mode_mapping[mode_raw] if mode_raw in self.mode_mapping else CookingMode(self.data["mode"])
 
     @property
     def status(self) -> int:
@@ -447,6 +504,7 @@ class FryerMiot(MiotDevice):
     """Interface for AirFryer (careli.fryer.maf02)"""
     mapping = MIOT_MAPPING[MODEL_FRYER_MAF02]
     status_mapping = None
+    mode_mapping = None
 
     def __init__(
         self,
@@ -488,7 +546,8 @@ class FryerMiot(MiotDevice):
                 prop["did"]: prop["value"] if prop["code"] == 0 else None
                 for prop in self.get_properties_for_mapping()
             },
-            self.status_mapping
+            self.status_mapping,
+            self.mode_mapping,
         )
 
     @command(
@@ -587,3 +646,9 @@ class FryerMiotViomi(FryerMiot):
     """Interface for AirFryer (viomi.fryer.v3)"""
     mapping = MIOT_MAPPING[MODEL_FRYER_V3]
     status_mapping = STATUS_MAPPING[MODEL_FRYER_V3]
+
+class FryerMiotXiaomi(FryerMiot):
+    """Interface for AirFryer (xiaomi.fryer.maf14)"""
+    mapping = MIOT_MAPPING[MODEL_FRYER_MAF14]
+    status_mapping = STATUS_MAPPING[MODEL_FRYER_MAF14]
+    mode_mapping = COOKING_MODE_MAPPING[MODEL_FRYER_MAF14]
