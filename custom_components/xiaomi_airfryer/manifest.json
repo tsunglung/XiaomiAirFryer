@@ -7,8 +7,8 @@
   "documentation": "https://github.com/tsunglung/XiaomiAirFryer",
   "issue_tracker": "https://github.com/tsunglung/XiaomiAirFryer/issues",
   "requirements": [
-    "construct>=2.10.70",
-    "micloud>=0.6",
+    "construct>=2.10.68",
+    "micloud>=0.5",
     "python-miio>=0.5.12"
   ],
   "dependencies": [],
