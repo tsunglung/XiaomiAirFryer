@@ -45,10 +45,10 @@ SENSOR_TYPES_MAF = {
     "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None,SensorDeviceClass.TEMPERATURE],
     "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
     "recipe_id": ["Recipe Id", None, "recipe_id", None, "mdi:rice", None],
-    "appoint_time": ["Apponit Time", None, "appoint_time", UnitOfTime.MINUTES, "mdi:timelapse", None],
+    "appoint_time": ["Cooking Time", None, "appoint_time", UnitOfTime.MINUTES, "mdi:timelapse", None],
     "food_quanty": ["Food Quanty", None, "food_quanty", None, "mdi:flash-outline", None],
     "preheat_switch": ["Preheat Phase", None, "preheat_switch", None, "mdi:pot-steam-outline", None],
-    "appoint_time_left": ["Appoint Time Left", None, "appoint_time_left", UnitOfTime.MINUTES, "mdi:timer", None],
+    "appoint_time_left": ["Cooking Time Left", None, "appoint_time_left", UnitOfTime.MINUTES, "mdi:timer", None],
     "turn_pot": ["Turn Pot", None, "turn_pot", None, "mdi:rotate-3d-variant", None]
 }
 
