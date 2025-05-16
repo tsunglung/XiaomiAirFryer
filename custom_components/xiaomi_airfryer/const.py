@@ -22,6 +22,7 @@ MODEL_FRYER_SCK501 = "silen.fryer.sck501"
 MODEL_FRYER_SCK505 = "silen.fryer.sck505"
 MODEL_FRYER_534 = "miot.fryer.534"
 MODEL_FRYER_V3 = "viomi.fryer.v3"
+MODEL_FRYER_MAF14 = "xiaomi.fryer.maf14"
 
 OPT_MODEL = {
     MODEL_FRYER_MAF01: "Mi Smart Air Fryer China",
@@ -34,6 +35,7 @@ OPT_MODEL = {
     MODEL_FRYER_SCK501: "Silencare AirFryer 1.8L",
     MODEL_FRYER_SCK505: "Silencare AirFryer",
     MODEL_FRYER_V3: "Viomi Smart Air Fryer Pro 6L",
+    MODEL_FRYER_MAF14: "Xiaomi Smart Air Fryer 4.5L Global",
 }
 
 MODELS_CARELI = [
@@ -55,7 +57,10 @@ MODELS_MIOT = [
 MODELS_VIOMI = [
     MODEL_FRYER_V3
 ]
-MODELS_ALL_DEVICES = MODELS_CARELI + MODELS_SILEN + MODELS_MIOT + MODELS_VIOMI
+MODELS_XIAOMI = [
+    MODEL_FRYER_MAF14
+]
+MODELS_ALL_DEVICES = MODELS_CARELI + MODELS_SILEN + MODELS_MIOT + MODELS_VIOMI + MODELS_XIAOMI
 
 ATTR_FOOD_QUANTY = "food_quanty"
 ATTR_MODEL = "model"
