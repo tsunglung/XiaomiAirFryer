@@ -20,6 +20,7 @@ Credits: Thanks to [Rytilahti](https://github.com/rytilahti/python-miio) for all
 | Silencare AirFryer 1.8L     | silen.fryer.sck501  |   |
 | Silencare AirFryer          | silen.fryer.sck505  | |
 | Viomi Smart Air Fryer Pro 6L| viomi.fryer.v3      | |
+| Xiaomi Smart Air Fryer 4.5L| xiaomi.fryer.maf14      | |
 
 ## Features
 
