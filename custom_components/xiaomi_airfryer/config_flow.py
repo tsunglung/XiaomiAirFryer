@@ -17,7 +17,9 @@ from homeassistant.const import (
     CONF_SCAN_INTERVAL,
     CONF_DEVICE,
     CONF_MAC,
-    CONF_MODEL
+    CONF_MODEL,
+    MAJOR_VERSION,
+    MINOR_VERSION
 )
 
 from homeassistant.components.xiaomi_miio.const import (
@@ -71,7 +73,8 @@ class OptionsFlowHandler(config_entries.OptionsFlow):
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Init object."""
-        self.config_entry = config_entry
+        if (MAJOR_VERSION, MINOR_VERSION) < (2024, 11):
+            self.config_entry = config_entry
         self.options = dict(config_entry.options)
 
     async def async_step_init(self, user_input=None):
