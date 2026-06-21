@@ -1,0 +1,83 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Η συσκευή έχει ήδη ρυθμιστεί",
+            "already_in_progress": "Η διαδικασία ρύθμισης βρίσκεται ήδη σε εξέλιξη",
+            "incomplete_info": "Ανεπαρκείς πληροφορίες για τη ρύθμιση της συσκευής. Δεν δόθηκε διεύθυνση IP ή token.",
+            "not_xiaomi_miio": "Η συσκευή δεν υποστηρίζεται (ακόμη) από το Xiaomi Miio.",
+            "reauth_successful": "Η επαναπιστοποίηση ολοκληρώθηκε με επιτυχία"
+        },
+        "error": {
+            "cannot_connect": "Αποτυχία σύνδεσης",
+            "cloud_credentials_incomplete": "Ελλιπή στοιχεία λογαριασμού Cloud. Συμπληρώστε όνομα χρήστη, κωδικό πρόσβασης και χώρα.",
+            "cloud_login_error": "Δεν ήταν δυνατή η σύνδεση στο Xiaomi Miio Cloud. Ελέγξτε τα στοιχεία σύνδεσής σας.",
+            "cloud_no_devices": "Δεν βρέθηκαν συσκευές σε αυτόν τον λογαριασμό Xiaomi Miio Cloud.",
+            "no_device_selected": "Δεν επιλέχθηκε συσκευή. Παρακαλώ επιλέξτε μία συσκευή.",
+            "unknown_device": "Το μοντέλο της συσκευής δεν είναι γνωστό και δεν μπορεί να ρυθμιστεί μέσω της διαδικασίας ρύθμισης.",
+            "wrong_token": "Σφάλμα επαλήθευσης. Λανθασμένο token."
+        },
+        "flow_title": "{name}",
+        "step": {
+            "cloud": {
+                "data": {
+                    "cloud_country": "Χώρα διακομιστή Cloud",
+                    "cloud_password": "Κωδικός πρόσβασης Cloud",
+                    "cloud_username": "Όνομα χρήστη Cloud",
+                    "manual": "Χειροκίνητη ρύθμιση (δεν συνιστάται)"
+                },
+                "description": "Συνδεθείτε στο Xiaomi Miio Cloud. Δείτε το https://www.openhab.org/addons/bindings/miio/#country-servers για να επιλέξετε τον κατάλληλο διακομιστή Cloud.",
+                "title": "Σύνδεση σε Xiaomi Miio AirFryer"
+            },
+            "connect": {
+                "data": {
+                    "model": "Μοντέλο συσκευής"
+                },
+                "description": "Επιλέξτε χειροκίνητα το μοντέλο της συσκευής από τα υποστηριζόμενα μοντέλα.",
+                "title": "Σύνδεση σε Xiaomi Miio AirFryer"
+            },
+            "device": {
+                "data": {
+                    "host": "Διεύθυνση IP",
+                    "model": "Μοντέλο συσκευής (προαιρετικό)",
+                    "name": "Όνομα συσκευής",
+                    "token": "API Token"
+                },
+                "description": "Θα χρειαστείτε το API Token των 32 χαρακτήρων. Δείτε τις οδηγίες στο https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Σημειώστε ότι αυτό το API Token είναι διαφορετικό από το κλειδί που χρησιμοποιείται από την ενσωμάτωση Xiaomi Aqara.",
+                "title": "Σύνδεση σε Xiaomi Miio AirFryer"
+            },
+            "manual": {
+                "data": {
+                    "host": "Διεύθυνση IP",
+                    "token": "API Token"
+                },
+                "description": "Θα χρειαστείτε το API Token των 32 χαρακτήρων. Δείτε τις οδηγίες στο https://www.home-assistant.io/integrations/xiaomi_miio#retrieving-the-access-token. Σημειώστε ότι αυτό το API Token είναι διαφορετικό από το κλειδί που χρησιμοποιείται από την ενσωμάτωση Xiaomi Aqara.",
+                "title": "Σύνδεση σε Xiaomi AirFryer"
+            },
+            "reauth_confirm": {
+                "description": "Η ενσωμάτωση Xiaomi Miio πρέπει να επαναπιστοποιήσει τον λογαριασμό σας για να ενημερώσει τα tokens ή να προσθέσει στοιχεία Cloud που λείπουν.",
+                "title": "Επαναπιστοποίηση ενσωμάτωσης"
+            },
+            "select": {
+                "data": {
+                    "select_device": "Xiaomi AirFryer"
+                },
+                "description": "Επιλέξτε το Xiaomi AirFryer που θέλετε να ρυθμίσετε.",
+                "title": "Σύνδεση σε Xiaomi AirFryer"
+            }
+        }
+    },
+    "options": {
+        "error": {
+            "cloud_credentials_incomplete": "Ελλιπή στοιχεία λογαριασμού Cloud. Συμπληρώστε όνομα χρήστη, κωδικό πρόσβασης και χώρα."
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "cloud_subdevices": "Χρήση του Cloud για ανάκτηση συνδεδεμένων υποσυσκευών"
+                },
+                "description": "Καθορίστε τις προαιρετικές ρυθμίσεις",
+                "title": "Xiaomi AirFryer"
+            }
+        }
+    }
+}
