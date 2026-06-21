@@ -66,7 +66,7 @@ SENSOR_TYPES_SCK = {
     "target_time": ["Target Time", None, "target_time", None, "mdi:menu", None],
     "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None, SensorDeviceClass.TEMPERATURE],
     "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
-    "switch_status": ["Preheat Phase", None, "work_temp", None, "mdi:pot-steam-outline", None],
+    "switch_status": ["Switch Status", None, "switch_status", None, "mdi:pot-steam-outline", None],
     "mode": ["Recipe Id", None, "mode", None, "mdi:stairs", None]
 }
 
