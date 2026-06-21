@@ -91,9 +91,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         model = entry.options.get(CONF_MODEL)
         scan_interval = entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
 
-    if DATA_KEY not in hass.data:
-        hass.data.setdefault(DATA_KEY, {})
-        hass.data[DATA_KEY][host] = {}
+    hass.data.setdefault(DATA_KEY, {})
+    hass.data[DATA_KEY].setdefault(host, {})
 
     if DOMAIN not in hass.data:
         hass.data[DOMAIN] = {}
