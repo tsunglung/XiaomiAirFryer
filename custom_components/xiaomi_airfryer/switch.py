@@ -288,8 +288,8 @@ class XiaomiAirFryer(SwitchEntity):
         return device_info
 
     async def async_turn_on(self, **kwargs):
-        """Turn the air fryeron."""
-        result = self._device.start_cook()
+        """Turn the air fryer on."""
+        result = await self.hass.async_add_executor_job(self._device.start_cook)
 
         if result:
             self._state = True
@@ -297,7 +297,7 @@ class XiaomiAirFryer(SwitchEntity):
 
     async def async_turn_off(self, **kwargs):
         """Turn the air fryer off."""
-        result = self._device.cancel_cooking()
+        result = await self.hass.async_add_executor_job(self._device.cancel_cooking)
 
         if result:
             self._state = False
@@ -305,46 +305,60 @@ class XiaomiAirFryer(SwitchEntity):
 
     async def async_start(self):
         """Start cooking."""
-        self._device.start_cook()
+        await self.hass.async_add_executor_job(self._device.start_cook)
 
     async def async_stop(self):
         """Stop cooking."""
-        self._device.cancel_cooking()
+        await self.hass.async_add_executor_job(self._device.cancel_cooking)
 
     async def async_pause(self):
         """Pause cooking."""
-        self._device.pause()
+        await self.hass.async_add_executor_job(self._device.pause)
 
     async def async_resume(self):
         """Resume cooking."""
-        self._device.resume_cooking()
+        await self.hass.async_add_executor_job(self._device.resume_cooking)
 
     async def async_start_custom(self, mode: str):
         """Start custom cooking."""
         if self._model in MODELS_CARELI:
-            self._device.start_custom_cook(MODE_MAF[mode])
+            mode_value = MODE_MAF[mode]
         else:
-            self._device.start_custom_cook(MODE[mode])
+            mode_value = MODE[mode]
+
+        await self.hass.async_add_executor_job(
+            self._device.start_custom_cook, mode_value
+        )
 
     async def async_food_quanty(self, food_quanty: int):
         """Set food quanty."""
-        self._device.food_quanty(food_quanty)
+        await self.hass.async_add_executor_job(
+            self._device.food_quanty, food_quanty
+        )
 
     async def async_recipe_id(self, recipe_id: str):
         """Set recipe id."""
-        self._device.recipe_id(recipe_id)
+        await self.hass.async_add_executor_job(
+            self._device.recipe_id, recipe_id
+        )
 
     async def async_appoint_time(self, time: int):
         """Set appoint time."""
-        self._device.appoint_time(time)
+        await self.hass.async_add_executor_job(
+            self._device.appoint_time, time
+        )
 
     async def async_target_time(self, target_time: int):
         """Set target time."""
-        self._device.target_time(target_time)
+        await self.hass.async_add_executor_job(
+            self._device.target_time, target_time
+        )
 
     async def async_target_temperature(self, target_temperature: int):
         """Set target temperature."""
-        self._device.target_temperature(target_temperature)
+        await self.hass.async_add_executor_job(
+        self._device.target_temperature, target_temperature
+    )
 
     async def async_update(self):
         """Fetch state from the device."""
