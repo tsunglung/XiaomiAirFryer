@@ -219,6 +219,9 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
                 await asyncio.wait(task_objects)
 
         for service, _ in SERVICE_TO_METHOD.items():
+            if hass.services.has_service(DOMAIN, service):
+                continue
+
             schema = SERVICE_TO_METHOD[service].get("schema", SERVICE_SCHEMA)
             hass.services.async_register(
                 DOMAIN, service, async_service_handler, schema=schema
