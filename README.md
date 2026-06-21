@@ -8,19 +8,19 @@ Credits: Thanks to [Rytilahti](https://github.com/rytilahti/python-miio) for all
 
 ## Supported devices
 
-| Name                        | Model                  | Model no. |
-|  -------------------------  | ---------------------- | --------- |
-|                             | careli.fryer.maf01  |   |
-| Mi Smart Air Fryer          | careli.fryer.maf02  |   |
-|                             | careli.fryer.maf03  | |
-|                             | careli.fryer.maf05a  | |
-|                             | careli.fryer.maf10a  | |
-|                             | careli.fryer.maf07  | |
-| Upany Air Fryer YB-02208DTW | careli.fryer.ybaf01 | |
-| Silencare AirFryer 1.8L     | silen.fryer.sck501  |   |
-| Silencare AirFryer          | silen.fryer.sck505  | |
-| Viomi Smart Air Fryer Pro 6L| viomi.fryer.v3      | |
-| Xiaomi Smart Air Fryer 4.5L| xiaomi.fryer.maf14      | |
+| Name                         | Model                  | Model no. |
+|------------------------------| ---------------------- | --------- |
+|                              | careli.fryer.maf01  |   |
+| Mi Smart Air Fryer           | careli.fryer.maf02  |   |
+|                              | careli.fryer.maf03  | |
+|                              | careli.fryer.maf05a  | |
+| Xiaomi Smart Air Fryer 6.5L  | careli.fryer.maf10a  | |
+|                              | careli.fryer.maf07  | |
+| Upany Air Fryer YB-02208DTW  | careli.fryer.ybaf01 | |
+| Silencare AirFryer 1.8L      | silen.fryer.sck501  |   |
+| Silencare AirFryer           | silen.fryer.sck505  | |
+| Viomi Smart Air Fryer Pro 6L | viomi.fryer.v3      | |
+| Xiaomi Smart Air Fryer 4.5L  | xiaomi.fryer.maf14      | |
 
 ## Features
 

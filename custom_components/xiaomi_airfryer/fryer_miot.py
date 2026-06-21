@@ -126,8 +126,8 @@ MIOT_MAPPING = {
         "recipe_sync": {"siid": 2, "piid": 12},  # read, notify, write
         "taret_cooking_measure": {"siid": 2, "piid": 13},  # read, notify, write
         "turn_pot": {"siid": 2, "piid": 14},  # read, notify
-        "turn_pot_config": {"siid": 2, "piid": 15},  # read, notify, write   <-- FIXED (ήταν 16)
-        "texture": {"siid": 2, "piid": 16},  # read, notify, write          <-- NEW
+        "turn_pot_config": {"siid": 2, "piid": 15},  # read, notify, write
+        "texture": {"siid": 2, "piid": 16},  # read, notify, write
         "reservation_left_time": {"siid": 2, "piid": 17},  # read, notify, write
         "cooking_weight": {"siid": 2, "piid": 18},  # read, notify, write
         "start_cook": {"siid": 2, "aiid": 1},
