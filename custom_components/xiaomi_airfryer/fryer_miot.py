@@ -110,6 +110,7 @@ MIOT_MAPPING = {
         "start_custom_cook": {"siid": 3, "aiid": 1},
         "resume_cooking": {"siid": 3, "aiid": 2}
     },
+    # http://miot-spec.org/miot-spec-v2/instance?type=urn:miot-spec-v2:device:air-fryer:0000A0A4:careli-maf10a:1
     MODEL_FRYER_MAF10A: {
         "status": {"siid": 2, "piid": 1},  # read, notify
         "device_fault": {"siid": 2, "piid": 2},  # read, notify
@@ -125,7 +126,8 @@ MIOT_MAPPING = {
         "recipe_sync": {"siid": 2, "piid": 12},  # read, notify, write
         "taret_cooking_measure": {"siid": 2, "piid": 13},  # read, notify, write
         "turn_pot": {"siid": 2, "piid": 14},  # read, notify
-        "turn_pot_config": {"siid": 2, "piid": 16},  # read, notify, write
+        "turn_pot_config": {"siid": 2, "piid": 15},  # read, notify, write
+        "texture": {"siid": 2, "piid": 16},  # read, notify, write
         "reservation_left_time": {"siid": 2, "piid": 17},  # read, notify, write
         "cooking_weight": {"siid": 2, "piid": 18},  # read, notify, write
         "start_cook": {"siid": 2, "aiid": 1},
@@ -359,6 +361,7 @@ class CookingModeXiaomi(enum.Enum):
 
 
 class CookingTexture(enum.Enum):
+    Unknown = -1
     NONE = 0
     CrispyRoast = 1
     TenderRoast = 2
@@ -506,6 +509,34 @@ class FryerStatusMiot(DeviceStatus):
             _LOGGER.error("Unknown TurnPot (%s)", self.data["turn_pot"])
             return TurnPot.Unknown
 
+    @property
+    def preheat(self) -> bool:
+        """Preheat phase."""
+        return self.data["preheat"]
+
+    @property
+    def turn_pot_config(self) -> bool:
+        """Turn Pot Config."""
+        return self.data["turn_pot_config"]
+
+    @property
+    def texture(self) -> CookingTexture:
+        """Texture."""
+        try:
+            return CookingTexture(self.data["texture"])
+        except ValueError:
+            _LOGGER.error("Unknown Texture (%s)", self.data["texture"])
+            return CookingTexture.Unknown
+
+    @property
+    def reservation_left_time(self) -> int:
+        """Reservation Left Time."""
+        return self.data["reservation_left_time"]
+
+    @property
+    def cooking_weight(self) -> int:
+        """Cooking Weight."""
+        return self.data["cooking_weight"]
 
 class FryerMiot(MiotDevice):
     """Interface for AirFryer (careli.fryer.maf02)"""
@@ -525,6 +556,7 @@ class FryerMiot(MiotDevice):
 
         super().__init__(ip, token, start_id, debug, lazy_discover)
         self._model = model
+        self.mapping = MIOT_MAPPING[model]
 
     @command(
         default_output=format_output(
