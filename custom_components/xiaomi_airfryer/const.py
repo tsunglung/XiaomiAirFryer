@@ -11,41 +11,46 @@ DATA_DEVICE = "device"
 CONF_MODEL = "model"
 CONF_MAC = "mac"
 
+MODEL_FRYER_534 = "miot.fryer.534"
 MODEL_FRYER_MAF01 = "careli.fryer.maf01"
 MODEL_FRYER_MAF02 = "careli.fryer.maf02"
 MODEL_FRYER_MAF03 = "careli.fryer.maf03"
-MODEL_FRYER_MAF07 = "careli.fryer.maf07"
-MODEL_FRYER_MAF10A = "careli.fryer.maf10a"
-MODEL_FRYER_YBAF01 = "careli.fryer.ybaf01"
 MODEL_FRYER_MAF05A = "careli.fryer.maf05a"
+MODEL_FRYER_MAF07 = "careli.fryer.maf07"
+MODEL_FRYER_MAF07D = "xiaomi.fryer.maf07d"
+MODEL_FRYER_MAF10A = "careli.fryer.maf10a"
+MODEL_FRYER_MAF14 = "xiaomi.fryer.maf14"
+MODEL_FRYER_MAF15 = "xiaomi.fryer.maf15"
 MODEL_FRYER_SCK501 = "silen.fryer.sck501"
 MODEL_FRYER_SCK505 = "silen.fryer.sck505"
-MODEL_FRYER_534 = "miot.fryer.534"
 MODEL_FRYER_V3 = "viomi.fryer.v3"
-MODEL_FRYER_MAF14 = "xiaomi.fryer.maf14"
+MODEL_FRYER_YBAF01 = "careli.fryer.ybaf01"
+
 
 OPT_MODEL = {
     MODEL_FRYER_MAF01: "Mi Smart Air Fryer China",
     MODEL_FRYER_MAF02: "Mi Smart Air Fryer Global",
     MODEL_FRYER_MAF03: "Mi Smart Air Fryer China",
-    MODEL_FRYER_MAF07: "Mi Smart Air Fryer Global",
-    MODEL_FRYER_MAF10A: "Mi Smart Air Fryer EU 6.5L",
     MODEL_FRYER_MAF05A: "Mi Smart Air Fryer EU",
-    MODEL_FRYER_YBAF01: "Upany Air Fryer YB-02208DTW",
+    MODEL_FRYER_MAF07: "Mi Smart Air Fryer Global",
+    MODEL_FRYER_MAF07D: "Xiaomi Smart Air Fryer 5.5L",
+    MODEL_FRYER_MAF10A: "Mi Smart Air Fryer EU 6.5L",
+    MODEL_FRYER_MAF14: "Xiaomi Smart Air Fryer 4.5L Global",
+    MODEL_FRYER_MAF15: "Xiaomi Smart Air Fryer 4.5L",
     MODEL_FRYER_SCK501: "Silencare AirFryer 1.8L",
     MODEL_FRYER_SCK505: "Silencare AirFryer",
     MODEL_FRYER_V3: "Viomi Smart Air Fryer Pro 6L",
-    MODEL_FRYER_MAF14: "Xiaomi Smart Air Fryer 4.5L Global",
+    MODEL_FRYER_YBAF01: "Upany Air Fryer YB-02208DTW",
 }
 
 MODELS_CARELI = [
     MODEL_FRYER_MAF01,
     MODEL_FRYER_MAF02,
     MODEL_FRYER_MAF03,
+    MODEL_FRYER_MAF05A,
     MODEL_FRYER_MAF07,
     MODEL_FRYER_MAF10A,
-    MODEL_FRYER_YBAF01,
-    MODEL_FRYER_MAF05A
+    MODEL_FRYER_YBAF01
 ]
 MODELS_SILEN = [
     MODEL_FRYER_SCK501,
@@ -58,7 +63,9 @@ MODELS_VIOMI = [
     MODEL_FRYER_V3
 ]
 MODELS_XIAOMI = [
-    MODEL_FRYER_MAF14
+    MODEL_FRYER_MAF07D,
+    MODEL_FRYER_MAF14,
+    MODEL_FRYER_MAF15,
 ]
 MODELS_ALL_DEVICES = MODELS_CARELI + MODELS_SILEN + MODELS_MIOT + MODELS_VIOMI + MODELS_XIAOMI
 
