@@ -1,18 +1,13 @@
 """Sensors of the Xiaomi AirFryer component."""
 # pylint: disable=import-error
-import asyncio
 import logging
+from datetime import timedelta
 from enum import Enum
 from typing import Optional
-from datetime import timedelta
 
 from homeassistant.components.sensor import ENTITY_ID_FORMAT, SensorEntity
 from homeassistant.components.sensor.const import SensorDeviceClass
 from homeassistant.config_entries import SOURCE_IMPORT
-from homeassistant.core import callback
-from homeassistant.helpers import device_registry as dr
-from homeassistant.util import slugify
-from homeassistant.exceptions import PlatformNotReady
 from homeassistant.const import (
     CONF_HOST,
     CONF_MAC,
@@ -20,8 +15,11 @@ from homeassistant.const import (
     UnitOfTemperature,
     UnitOfTime,
 )
-
+from homeassistant.exceptions import PlatformNotReady
+from homeassistant.helpers import device_registry as dr
+from homeassistant.util import slugify
 from miio import Device, DeviceException
+
 from .const import (
     CONF_MODEL,
     DATA_KEY,
@@ -33,8 +31,7 @@ from .const import (
     MODELS_MIOT,
     MODELS_SILEN,
     MODELS_VIOMI,
-    MODELS_XIAOMI,
-    MODELS_ALL_DEVICES
+    MODELS_XIAOMI
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -76,9 +73,12 @@ SENSOR_TYPES_MIOT = {
     "target_time": ["Target Time", None, "target_time", None, "mdi:menu", None],
     "target_temperature": ["Target Temperature", None, "target_temperature", UnitOfTemperature.CELSIUS, None, SensorDeviceClass.TEMPERATURE],
     "left_time": ["Remaining", None, "left_time", UnitOfTime.MINUTES, "mdi:timer", None],
-    "recipe_id": ["Recipe Id", None, "recipe_id", None, "mdi:rice", None],
-    "preheat_switch": ["Preheat Phase", None, "preheat_switch", None, "mdi:pot-steam-outline", None],
-    "mode": ["Recipe Id", None, "mode", None, "mdi:stairs", None]
+    "switch_status": ["Switch Status", None, "switch_status", None, "mdi:pot-steam-outline", None],
+    "temperature": ["Temperature", None, "temperature", UnitOfTemperature.CELSIUS, None, SensorDeviceClass.TEMPERATURE],
+    "preheat": ["Preheat Phase", None, "preheat", None, "mdi:pot-steam-outline", None],
+    "recipe_command": ["Recipe Command", None, "recipe_command", None, "mdi:rice", None],
+    "target_cooking_measure": ["Target Cooking Measure", None, "target_cooking_measure", None, "mdi:scale", None],
+    "mode": ["Recipe Id", None, "mode", None, "mdi:stairs", None],
 }
 
 SENSOR_TYPES_VIOMI = {
