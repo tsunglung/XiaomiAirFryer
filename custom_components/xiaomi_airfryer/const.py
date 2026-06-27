@@ -43,7 +43,7 @@ OPT_MODEL = {
     MODEL_FRYER_MAF06: "Mi Smart Air Fryer",
     MODEL_FRYER_MAF06A: "Mijia Smart Air Fryer 4.5L",
     MODEL_FRYER_MAF06B: "Mijia Smart Air Fryer 4.5L",
-    MODEL_FRYER_MAF07: "Mi Smart Air Fryer 3.5L",
+    MODEL_FRYER_MAF07: "Mi Smart Air Fryer 3.5L Global",
     MODEL_FRYER_MAF07C: "Mijia Smart Air Fryer 5.5L",
     MODEL_FRYER_MAF07D: "Xiaomi Smart Air Fryer 5.5L",
     MODEL_FRYER_MAF09A: "Youban Mijia Smart Air Fryer 6.5L",
@@ -55,7 +55,7 @@ OPT_MODEL = {
     MODEL_FRYER_V3: "Viomi Smart Air Fryer Pro 6L",
     MODEL_FRYER_YBAF01: "Upany Air Fryer YB-02208DTW",
     MODEL_FRYER_YBAF02: "Youban Smart Air Fryer 2208DTW",
-    MODEL_FRYER_YBAF03: "Youban KitcheMi Smart Air Fryer 6007WA",
+    MODEL_FRYER_YBAF03: "Youban KitchenMi Smart Air Fryer 6007WA",
     MODEL_FRYER_YBAF04: "Youban KitchenMi Smart Air Fryer 6007WAB",
 }
 
