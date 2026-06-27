@@ -16,8 +16,13 @@ MODEL_FRYER_MAF01 = "careli.fryer.maf01"
 MODEL_FRYER_MAF02 = "careli.fryer.maf02"
 MODEL_FRYER_MAF03 = "careli.fryer.maf03"
 MODEL_FRYER_MAF05A = "careli.fryer.maf05a"
+MODEL_FRYER_MAF06 = "careli.fryer.maf06"
+MODEL_FRYER_MAF06A = "careli.fryer.maf06a"
+MODEL_FRYER_MAF06B = "careli.fryer.maf06b"
 MODEL_FRYER_MAF07 = "careli.fryer.maf07"
+MODEL_FRYER_MAF07C = "careli.fryer.maf07c"
 MODEL_FRYER_MAF07D = "xiaomi.fryer.maf07d"
+MODEL_FRYER_MAF09A = "careli.fryer.maf09a"
 MODEL_FRYER_MAF10A = "careli.fryer.maf10a"
 MODEL_FRYER_MAF14 = "xiaomi.fryer.maf14"
 MODEL_FRYER_MAF15 = "xiaomi.fryer.maf15"
@@ -25,6 +30,9 @@ MODEL_FRYER_SCK501 = "silen.fryer.sck501"
 MODEL_FRYER_SCK505 = "silen.fryer.sck505"
 MODEL_FRYER_V3 = "viomi.fryer.v3"
 MODEL_FRYER_YBAF01 = "careli.fryer.ybaf01"
+MODEL_FRYER_YBAF02 = "careli.fryer.ybaf02"
+MODEL_FRYER_YBAF03 = "careli.fryer.ybaf03"
+MODEL_FRYER_YBAF04 = "careli.fryer.ybaf04"
 
 
 OPT_MODEL = {
@@ -32,15 +40,23 @@ OPT_MODEL = {
     MODEL_FRYER_MAF02: "Mi Smart Air Fryer Global",
     MODEL_FRYER_MAF03: "Mi Smart Air Fryer China",
     MODEL_FRYER_MAF05A: "Mi Smart Air Fryer EU",
-    MODEL_FRYER_MAF07: "Mi Smart Air Fryer Global",
+    MODEL_FRYER_MAF06: "Mi Smart Air Fryer",
+    MODEL_FRYER_MAF06A: "Mijia Smart Air Fryer 4.5L",
+    MODEL_FRYER_MAF06B: "Mijia Smart Air Fryer 4.5L",
+    MODEL_FRYER_MAF07: "Mi Smart Air Fryer 3.5L Global",
+    MODEL_FRYER_MAF07C: "Mijia Smart Air Fryer 5.5L",
     MODEL_FRYER_MAF07D: "Xiaomi Smart Air Fryer 5.5L",
+    MODEL_FRYER_MAF09A: "Youban Mijia Smart Air Fryer 6.5L",
     MODEL_FRYER_MAF10A: "Mi Smart Air Fryer EU 6.5L",
     MODEL_FRYER_MAF14: "Xiaomi Smart Air Fryer 4.5L Global",
     MODEL_FRYER_MAF15: "Xiaomi Smart Air Fryer 4.5L",
     MODEL_FRYER_SCK501: "Silencare AirFryer 1.8L",
-    MODEL_FRYER_SCK505: "Silencare AirFryer",
+    MODEL_FRYER_SCK505: "Silencare Silent Smart Air Fryer",
     MODEL_FRYER_V3: "Viomi Smart Air Fryer Pro 6L",
     MODEL_FRYER_YBAF01: "Upany Air Fryer YB-02208DTW",
+    MODEL_FRYER_YBAF02: "Youban Smart Air Fryer 2208DTW",
+    MODEL_FRYER_YBAF03: "Youban KitchenMi Smart Air Fryer 6007WA",
+    MODEL_FRYER_YBAF04: "Youban KitchenMi Smart Air Fryer 6007WAB",
 }
 
 MODELS_CARELI = [
@@ -48,9 +64,17 @@ MODELS_CARELI = [
     MODEL_FRYER_MAF02,
     MODEL_FRYER_MAF03,
     MODEL_FRYER_MAF05A,
+    MODEL_FRYER_MAF06,
+    MODEL_FRYER_MAF06A,
+    MODEL_FRYER_MAF06B,
     MODEL_FRYER_MAF07,
+    MODEL_FRYER_MAF07C,
+    MODEL_FRYER_MAF09A,
     MODEL_FRYER_MAF10A,
-    MODEL_FRYER_YBAF01
+    MODEL_FRYER_YBAF01,
+    MODEL_FRYER_YBAF02,
+    MODEL_FRYER_YBAF03,
+    MODEL_FRYER_YBAF04,
 ]
 MODELS_SILEN = [
     MODEL_FRYER_SCK501,
