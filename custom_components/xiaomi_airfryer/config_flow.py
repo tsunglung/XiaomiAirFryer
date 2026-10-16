@@ -30,8 +30,6 @@ from homeassistant.components.xiaomi_miio.const import (
     CONF_MANUAL,
     DEFAULT_CLOUD_COUNTRY,
     SERVER_COUNTRY_CODES,
-#    AuthException,
-#    SetupException
 )
 from homeassistant.components.xiaomi_miio.device import ConnectXiaomiDevice
 
@@ -60,12 +58,20 @@ DEVICE_CLOUD_CONFIG = vol.Schema(
 )
 
 # Exceptions
-class AuthException(Exception):
-    """Exception indicating an authentication error."""
+# ConnectXiaomiDevice raises the exceptions defined in the core xiaomi_miio
+# integration. Fall back to local ones for Home Assistant versions without them.
+try:
+    from homeassistant.components.xiaomi_miio.const import (
+        AuthException,
+        SetupException
+    )
+except ImportError:
+    class AuthException(Exception):
+        """Exception indicating an authentication error."""
 
 
-class SetupException(Exception):
-    """Exception indicating a failure during setup."""
+    class SetupException(Exception):
+        """Exception indicating a failure during setup."""
 
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
