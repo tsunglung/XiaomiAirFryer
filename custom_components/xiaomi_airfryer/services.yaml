@@ -174,4 +174,4 @@ target_temperature:
       selector:
         number:
           min: 40
-          max: 200
+          max: 230

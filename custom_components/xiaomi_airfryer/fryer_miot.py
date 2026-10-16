@@ -26,6 +26,7 @@ from .const import (
     MODEL_FRYER_MAF10A,
     MODEL_FRYER_MAF14,
     MODEL_FRYER_MAF15,
+    MODEL_FRYER_MAF65,
     MODEL_FRYER_SCK501,
     MODEL_FRYER_SCK505,
     MODEL_FRYER_V3,
@@ -378,6 +379,32 @@ MIOT_MAPPING = {
         "start_recipe_cook": {"siid": 2, "aiid": 4},
         "resume_cooking": {"siid": 2, "aiid": 5},
     },
+    # https://miot-spec.org/miot-spec-v2/instance?type=urn:miot-spec-v2:device:air-fryer:0000A0A4:xiaomi-maf65:1:0000D043
+    MODEL_FRYER_MAF65: {
+        "status": {"siid": 2, "piid": 1},  # read, notify
+        "device_fault": {"siid": 2, "piid": 2},  # read, notify
+        "target_time": {"siid": 2, "piid": 3},  # read, notify, write
+        "target_temperature": {"siid": 2, "piid": 4},  # read, notify, write (40-230)
+        "left_time": {"siid": 2, "piid": 5},  # read, notify
+        "auto_keep_warm": {"siid": 2, "piid": 6},  # read, notify, write
+        "current_keep_warm": {"siid": 2, "piid": 7},  # read, notify, write
+        "mode": {"siid": 2, "piid": 8},  # read, notify, write
+        "preheat": {"siid": 2, "piid": 9},  # read, notify, write
+        "recipe_id": {"siid": 2, "piid": 10},  # read, notify, write
+        "recipe_name": {"siid": 2, "piid": 11},  # read, notify, write
+        "recipe_sync": {"siid": 2, "piid": 12},  # read, notify, write
+        "target_cooking_measure": {"siid": 2, "piid": 13},  # read, notify, write
+        "turn_pot": {"siid": 2, "piid": 14},  # read, notify
+        "turn_pot_config": {"siid": 2, "piid": 15},  # read, notify, write
+        "texture": {"siid": 2, "piid": 16},  # read, notify, write
+        "reservation_left_time": {"siid": 2, "piid": 17},  # read, notify, write
+        "cooking_weight": {"siid": 2, "piid": 18},  # read, notify, write
+        "start_cook": {"siid": 2, "aiid": 1},
+        "cancel_cooking": {"siid": 2, "aiid": 2},
+        "pause": {"siid": 2, "aiid": 3},
+        "resume_cooking": {"siid": 2, "aiid": 4},
+        "start_recipe_cook": {"siid": 2, "aiid": 5},
+    },
     # http://miot-spec.org/miot-spec-v2/instance?type=urn:miot-spec-v2:device:air-fryer:0000A0A4:silen-sck501:1
     MODEL_FRYER_SCK501: {
         "status": {"siid": 2, "piid": 1},  # read, notify
@@ -508,6 +535,12 @@ MIOT_MAPPING = {
 
 class DeviceException(Exception):
     """Exception wrapping any communication errors with the device."""
+
+
+# Upper limit of target_temperature per model; the default is 200 degrees.
+MAX_TARGET_TEMPERATURE = {
+    MODEL_FRYER_MAF65: 230,
+}
 
 
 class StatusDefault(enum.Enum):
@@ -907,8 +940,9 @@ class FryerMiot(MiotDevice):
         default_output=format_output("Setting target temperature to {target_temperature}"),
     )
     def target_temperature(self, target_temperature: int):
-        """Set recipe id."""
-        if target_temperature < 40 or target_temperature > 200:
+        """Set target temperature."""
+        max_temperature = MAX_TARGET_TEMPERATURE.get(self._model, 200)
+        if target_temperature < 40 or target_temperature > max_temperature:
             raise DeviceException("Invalid value for target_temperature: %s" % target_temperature)
         return self.set_property("target_temperature", target_temperature)
 

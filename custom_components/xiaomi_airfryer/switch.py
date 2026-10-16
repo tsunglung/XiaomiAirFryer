@@ -43,6 +43,7 @@ from .const import (
     DEFAULT_NAME,
     DOMAIN,
     MODEL_FRYER_MAF10A,
+    MODEL_FRYER_MAF65,
     MODELS_CARELI,
     MODELS_ALL_DEVICES,
     SERVICE_APPOINT_TIME,
@@ -325,7 +326,7 @@ class XiaomiAirFryer(SwitchEntity):
 
     async def async_start_custom(self, mode: str):
         """Start custom cooking."""
-        if self._model == MODEL_FRYER_MAF10A:
+        if self._model in [MODEL_FRYER_MAF10A, MODEL_FRYER_MAF65]:
             _LOGGER.warning(
                 "start_custom is not supported on %s (no start_custom_cook action)",
                 self._model,
